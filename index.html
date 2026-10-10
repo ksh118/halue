@@ -10,6 +10,13 @@
   <meta property="og:description" content="Claude, Codex랑 같이 코딩하면서 웹사이트를 만들어요.">
   <title>하루 HALUE</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23060607'/%3E%3Ctext x='32' y='44' font-size='36' font-family='sans-serif' font-weight='700' text-anchor='middle' fill='%238b99ff'%3EH%3C/text%3E%3C/svg%3E">
+  <script>
+    // 새로고침/뒤로가기 해도 스크롤 위치를 복원하지 않고 항상 맨 위에서 시작
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    if (location.hash) history.replaceState(null, '', location.pathname + location.search);
+    scrollTo(0, 0);
+    addEventListener('pageshow', () => scrollTo(0, 0));
+  </script>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
 
   <style>
@@ -25,9 +32,6 @@
       --ease-out: cubic-bezier(.16, 1, .3, 1);
       --glass-tint: .1;
       --glass-blur: 6px;
-      box-sizing: border-box;
-      padding-top: env(safe-area-inset-top, 0px);
-      padding-bottom: env(safe-area-inset-bottom, 0px);
     }
 
     * { box-sizing: border-box; }
@@ -705,29 +709,54 @@
     }
 
     @media (max-width: 780px) {
-      body { font-size: 16px; }
+      body { font-size: 15px; }
 
       .nav-logo { font-size: 19px; }
       .site-nav { padding-left: 16px; }
       .nav-links a { padding: 6px 8px; font-size: 14px; }
 
-      .hero { grid-template-columns: 1fr; align-content: center; gap: 28px; padding: 100px 0 90px; }
-      .hero-lead { max-width: none; }
+      /* 첫 화면 */
+      .hero { grid-template-columns: 1fr; align-content: center; gap: 18px; padding: calc(84px + env(safe-area-inset-top, 0px)) 0 84px; }
+      .hero-title { font-size: clamp(52px, 19vw, 84px); margin-bottom: 12px; }
+      .hero-lead { max-width: none; margin-bottom: 18px; font-size: 18px; }
       .hero-actions { width: 100%; }
-      .btn { flex: 1; padding: 14px 12px; text-align: center; }
-      .mock-body { min-height: 190px; padding: 16px; gap: 10px; }
-      .ticker-track span { padding: 0 16px; font-size: 22px; }
+      .btn { flex: 1; padding: 12px 10px; text-align: center; }
+      .mock-bar { padding: 10px 14px; }
+      .mock-body { min-height: 156px; padding: 14px; gap: 8px; }
+      .bit-hero { --h: 44px; }
+      .bit-line1, .bit-line2 { --h: 12px; }
+      .mock-row .bit { --h: 36px; }
+      .ticker { bottom: calc(10px + env(safe-area-inset-bottom, 0px)); padding: 10px 0; }
+      .ticker-track span { padding: 0 16px; font-size: 20px; }
       .ticker-track span::after { margin-left: 32px; }
 
-      .panel { padding: 84px 0 28px; }
-      .panel-desc { margin-bottom: 24px; }
+      /* 공통: 섹션 하나가 폰 한 화면에 들어오도록 간격과 글자를 줄인다 */
+      .panel { padding: calc(76px + env(safe-area-inset-top, 0px)) 0 calc(20px + env(safe-area-inset-bottom, 0px)); }
+      .panel-title { margin-bottom: 6px; font-size: clamp(30px, 9vw, 38px); }
+      .panel-desc { margin-bottom: 16px; font-size: 14px; line-height: 1.55; }
+      .panel-desc br, .ai-card p br, .stack-card p br, .principles p br { display: none; }
 
-      .design-grid { grid-template-columns: 1fr; gap: 28px; }
-      .lens-stage { height: 190px; }
-      .lens-control { margin-top: 14px; }
+      .ai-grid { gap: 10px; }
+      .ai-card { padding: 14px 18px; border-radius: 18px; }
+      .ai-card h3 { margin: 0 0 4px; font-size: 22px; }
+      .ai-card p { font-size: 14px; line-height: 1.5; }
+
+      .stack-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .stack-card { padding: 16px; border-radius: 18px; }
+      .stack-card svg { width: 28px; height: 28px; margin-bottom: 10px; }
+      .stack-card b { font-size: 17px; }
+      .stack-card p { margin-top: 4px; font-size: 13px; line-height: 1.5; }
+
+      .design-grid { grid-template-columns: 1fr; gap: 16px; }
+      .principles { gap: 10px; }
+      .principles p { font-size: 14px; line-height: 1.5; }
+      .lens-stage { height: 130px; border-radius: 20px; }
+      .lens-word { font-size: 34px; }
+      .lens-notes { height: 22px; margin-top: 8px; font-size: 13px; }
+      .lens-control { margin-top: 6px; }
+      .lens-control-head { margin-bottom: 0; font-size: 14px; }
+      .slider { height: 28px; }
       .lens-control-hint { display: none; }
-      .principles { gap: 14px; }
-      .principles p { font-size: 15px; }
 
       /* 작업은 옆으로 넘겨서 본다 */
       .work-grid {
@@ -741,17 +770,32 @@
       }
       .work-grid::-webkit-scrollbar { display: none; }
       .work-card { flex: 0 0 76%; scroll-snap-align: center; }
-      .thumb { height: 130px; }
+      .thumb { height: 120px; }
 
       .people { gap: 10px; }
       .contact-box { padding: 44px 20px; }
       footer { flex-direction: column; gap: 4px; }
     }
 
+    /* 화면이 짧은 폰(SE 등): 한 장에 담기 위해 설명 문장은 줄인다 */
+    @media (max-width: 780px) and (max-height: 700px) {
+      .hero-lead { margin-bottom: 14px; font-size: 16px; }
+      .panel { padding-top: calc(68px + env(safe-area-inset-top, 0px)); }
+      .panel-desc { margin-bottom: 12px; }
+      #about .panel-desc, #stack .panel-desc, #design .panel-desc { display: none; }
+    }
+
     @media (max-width: 520px) {
-      .nav-logo { display: none; }
-      .site-nav { justify-content: center; padding: 0 6px; }
-      .nav-links { width: 100%; justify-content: space-around; }
+      .site-nav { padding: 0 6px 0 14px; }
+      .nav-logo { font-size: 17px; }
+      .nav-links { gap: 0; }
+      .nav-links a { padding: 6px 7px; font-size: 13.5px; }
+    }
+
+    @media (max-width: 360px) {
+      .site-nav { padding-left: 12px; }
+      .nav-logo { font-size: 15px; }
+      .nav-links a { padding: 6px 5px; font-size: 12.5px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -821,12 +865,12 @@
         <div class="ai-card tile reveal" style="--d:.1s">
           <small>코드</small>
           <h3>Codex</h3>
-          <p>코드를 짜고 고칠 때 써요.<br>기능 붙이는 게 빨라요.</p>
+          <p>코드를 짜고 고칠 때 써요.<br> 기능 붙이는 게 빨라요.</p>
         </div>
         <div class="ai-card tile reveal" style="--d:.2s">
           <small>마지막은 제가</small>
           <h3>직접</h3>
-          <p>뭘 만들지 정하고, 결과가 별로면 다시 시켜요.<br>올리기 전에는 직접 눌러 보면서 확인해요.</p>
+          <p>뭘 만들지 정하고, 결과가 별로면 다시 시켜요.<br> 올리기 전에는 직접 눌러 보면서 확인해요.</p>
         </div>
       </div>
     </section>
@@ -838,7 +882,7 @@
         <div class="stack-card tile reveal">
           <svg viewBox="0 0 24 24" aria-label="Vercel"><path d="m12 1.608 12 20.784H0Z" fill="currentColor"/></svg>
           <b>Vercel</b>
-          <p>사이트는 Vercel에 올려요.<br>주소 연결과 업데이트도 직접 해요.</p>
+          <p>사이트는 Vercel에 올려요.<br> 주소 연결과 업데이트도 직접 해요.</p>
         </div>
         <div class="stack-card tile reveal" style="--d:.1s">
           <svg viewBox="0 0 40 40" aria-label="서버" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="6" width="30" height="12" rx="4"/><rect x="5" y="22" width="30" height="12" rx="4"/><path d="M11 12h.01M11 28h.01M17 12h12M17 28h12"/></svg>
@@ -848,7 +892,7 @@
         <div class="stack-card tile reveal" style="--d:.2s">
           <svg viewBox="0 0 24 24" aria-label="Firebase"><path fill="#FFCA28" d="M19.455 8.369c-.538-.748-1.778-2.285-3.681-4.569-.826-.991-1.535-1.832-1.884-2.245a146 146 0 0 0-.488-.576l-.207-.245-.113-.133-.022-.032-.01-.005L12.57 0l-.609.488c-1.555 1.246-2.828 2.851-3.681 4.64-.523 1.064-.864 2.105-1.043 3.176-.047.241-.088.489-.121.738-.209-.017-.421-.028-.632-.033-.018-.001-.035-.002-.059-.003a7.46 7.46 0 0 0-2.28.274l-.317.089-.163.286c-.765 1.342-1.198 2.869-1.252 4.416-.07 2.01.477 3.954 1.583 5.625 1.082 1.633 2.61 2.882 4.42 3.611l.236.095.071.025.003-.001a9.59 9.59 0 0 0 2.941.568q.171.006.342.006c1.273 0 2.513-.249 3.69-.742l.008.004.313-.145a9.63 9.63 0 0 0 3.927-3.335c1.01-1.49 1.577-3.234 1.641-5.042.075-2.161-.643-4.304-2.133-6.371m-7.083 6.695c.328 1.244.264 2.44-.191 3.558-1.135-1.12-1.967-2.352-2.475-3.665-.543-1.404-.87-2.74-.974-3.975.48.157.922.366 1.315.622 1.132.737 1.914 1.902 2.325 3.461zm.207 6.022c.482.368.99.712 1.513 1.028-.771.21-1.565.302-2.369.273a8 8 0 0 1-.373-.022c.458-.394.869-.823 1.228-1.279zm1.347-6.431c-.516-1.957-1.527-3.437-3.002-4.398-.647-.421-1.385-.741-2.194-.95.011-.134.026-.268.043-.4.014-.113.03-.216.046-.313.133-.689.332-1.37.589-2.025.099-.25.206-.499.321-.74l.004-.008c.177-.358.376-.719.61-1.105l.092-.152-.003-.001c.544-.851 1.197-1.627 1.942-2.311l.288.341c.672.796 1.304 1.548 1.878 2.237 1.291 1.549 2.966 3.583 3.612 4.48 1.277 1.771 1.893 3.579 1.83 5.375-.049 1.395-.461 2.755-1.195 3.933-.694 1.116-1.661 2.05-2.8 2.708-.636-.318-1.559-.839-2.539-1.599.79-1.575.952-3.28.479-5.072zm-2.575 5.397c-.725.939-1.587 1.55-2.09 1.856-.081-.029-.163-.06-.243-.093l-.065-.026c-1.49-.616-2.747-1.656-3.635-3.01-.907-1.384-1.356-2.993-1.298-4.653.041-1.19.338-2.327.882-3.379.316-.07.638-.114.96-.131l.084-.002c.162-.003.324-.003.478 0 .227.011.454.035.677.07.073 1.513.445 3.145 1.105 4.852.637 1.644 1.694 3.162 3.144 4.515z"/></svg>
           <b>Firebase</b>
-          <p>데이터베이스는 Firebase를 써요.<br>데이터를 저장하고 불러오는 건 여기서 해요.</p>
+          <p>데이터베이스는 Firebase를 써요.<br> 데이터를 저장하고 불러오는 건 여기서 해요.</p>
         </div>
         <div class="stack-card tile reveal" style="--d:.3s">
           <svg viewBox="0 0 48 48" aria-label="Google"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg>
@@ -862,17 +906,17 @@
       <div class="design-grid">
         <div>
           <h2 class="panel-title reveal">디자인 철학</h2>
-          <p class="panel-desc reveal">애플 리퀴드 글라스를 참고했어요.<br>대신 전부 유리처럼 만들지는 않았어요.</p>
+          <p class="panel-desc reveal">애플 리퀴드 글라스를 참고했어요.<br> 대신 전부 유리처럼 만들지는 않았어요.</p>
           <ul class="principles">
-            <li class="reveal"><p>유리는 메뉴처럼 누르는 곳 위주로만 썼어요.<br>그 밖에는 굳이 유리일 필요가 없다고 생각했어요.</p></li>
-            <li class="reveal" style="--d:.1s"><p>메뉴가 동그라미에서 늘어나고 선택 표시가 미끄러지는 건,<br>어디를 눌렀는지 바로 보이게 하려고 넣었어요.</p></li>
-            <li class="reveal" style="--d:.2s"><p>바탕은 거의 검정이에요.<br>내용이 먼저 보이게 하고 싶었어요.</p></li>
+            <li class="reveal"><p>유리는 메뉴처럼 누르는 곳 위주로만 썼어요.<br> 그 밖에는 굳이 유리일 필요가 없다고 생각했어요.</p></li>
+            <li class="reveal" style="--d:.1s"><p>메뉴가 동그라미에서 늘어나고 선택 표시가 미끄러지는 건,<br> 어디를 눌렀는지 바로 보이게 하려고 넣었어요.</p></li>
+            <li class="reveal" style="--d:.2s"><p>바탕은 거의 검정이에요.<br> 내용이 먼저 보이게 하고 싶었어요.</p></li>
           </ul>
         </div>
 
         <figure class="lens-demo reveal" style="--d:.15s">
           <div class="lens-stage" aria-hidden="true">
-            <p class="lens-word">Liquid<br>Glass</p>
+            <p class="lens-word">Liquid<br> Glass</p>
             <div class="lens glass"></div>
           </div>
           <figcaption class="lens-notes">
@@ -1162,6 +1206,11 @@
 
     addEventListener('scroll', updateActive, { passive: true });
     addEventListener('resize', () => placePill(false));
+    // 메뉴가 늘어나는 동안엔 칸 위치가 계속 바뀌니까, 크기가 바뀔 때마다 다시 맞춘다
+    new ResizeObserver(() => placePill(false)).observe($('.site-nav'));
+    $('.site-nav').addEventListener('animationend', event => {
+      if (event.target === event.currentTarget) placePill(false);
+    });
     updateActive();
     document.fonts?.ready.then(() => placePill(false));
   </script>
