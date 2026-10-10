@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#060607">
   <meta name="description" content="하루 HALUE의 소개 사이트.">
   <meta property="og:title" content="하루 HALUE">
-  <meta property="og:description" content="사이트 제작자 입니다.">
+  <meta property="og:description" content="웹사이트 제작자 하루.">
   <title>하루 HALUE</title>
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23060607'/%3E%3Ctext x='32' y='44' font-size='36' font-family='sans-serif' font-weight='700' text-anchor='middle' fill='%238b99ff'%3EH%3C/text%3E%3C/svg%3E">
   <script>
@@ -735,7 +735,7 @@
 
       /* 공통: 섹션 하나가 폰 한 화면에 들어오도록 간격과 글자를 줄인다 */
       .panel { padding: calc(76px + env(safe-area-inset-top, 0px)) 0 calc(20px + env(safe-area-inset-bottom, 0px)); }
-      .panel-title { margin-bottom: 6px; font-size: clamp(30px, 9vw, 38px); }
+      .panel-title { margin-bottom: 6px; font-size: clamp(28px, 8vw, 38px); }
       .panel-desc { margin-bottom: 16px; font-size: 14px; line-height: 1.55; }
       .panel-desc br, .ai-card p br, .stack-card p br, .principles p br { display: none; }
 
@@ -869,7 +869,7 @@
         <h1 class="hero-title" aria-label="HALUE">
           <span style="--i:0">H</span><span style="--i:1">A</span><span style="--i:2">L</span><span style="--i:3">U</span><span style="--i:4">E</span>
         </h1>
-        <p class="hero-lead">Claude, Codex랑 같이 코딩하면서 웹사이트를 만들어요.</p>
+        <p class="hero-lead">Claude, Codex로 웹사이트를 개발합니다.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#work">작업 보기</a>
           <a class="btn" href="#contact">연락하기</a>
@@ -896,49 +896,49 @@
 
     <section class="panel" id="about">
       <h2 class="panel-title reveal">Build with AI</h2>
-      <p class="panel-desc reveal">뭘 만들지, 어떻게 보일지는 제가 정하고, 코드는 같이 짜요.</p>
+      <p class="panel-desc reveal">방향은 직접 정하고, 구현은 AI와 진행합니다.</p>
       <div class="ai-grid">
         <div class="ai-card tile reveal">
           <small>구조 · 검토</small>
           <h3>Claude</h3>
-          <p>화면 구조를 잡고, 코드에 이상한 데 없는지 볼 때 써요.</p>
+          <p>화면 구조를 설계하고 코드를 검토합니다.</p>
         </div>
         <div class="ai-card tile reveal" style="--d:.1s">
           <small>코드</small>
           <h3>Codex</h3>
-          <p>코드를 짜고 고칠 때 써요.<br> 기능 붙이는 게 빨라요.</p>
+          <p>코드를 작성하고 수정합니다.<br> 기능 추가가 빠릅니다.</p>
         </div>
         <div class="ai-card tile reveal" style="--d:.2s">
-          <small>마지막은 제가</small>
+          <small>최종 확인</small>
           <h3>직접</h3>
-          <p>뭘 만들지 정하고, 결과가 별로면 다시 시켜요.<br> 올리기 전에는 직접 눌러 보면서 확인해요.</p>
+          <p>결과물이 기준에 못 미치면 다시 요청합니다.<br> 배포 전 동작을 직접 확인합니다.</p>
         </div>
       </div>
     </section>
 
     <section class="panel" id="stack">
-      <h2 class="panel-title reveal">서버와 배포</h2>
-      <p class="panel-desc reveal">만든 걸 올리고 돌리는 것도 직접 해요.</p>
+      <h2 class="panel-title reveal">Server &amp; Deploy</h2>
+      <p class="panel-desc reveal">배포부터 운영까지 직접 진행합니다.</p>
       <div class="stack-grid">
         <div class="stack-card tile reveal">
           <svg viewBox="0 0 24 24" aria-label="Vercel"><path d="m12 1.608 12 20.784H0Z" fill="currentColor"/></svg>
           <b>Vercel</b>
-          <p>사이트는 Vercel에 올려요.<br> 주소 연결과 업데이트도 직접 해요.</p>
+          <p>사이트를 배포합니다.<br> 도메인 연결과 업데이트까지 관리합니다.</p>
         </div>
         <div class="stack-card tile reveal" style="--d:.1s">
           <svg viewBox="0 0 40 40" aria-label="서버" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="5" y="6" width="30" height="12" rx="4"/><rect x="5" y="22" width="30" height="12" rx="4"/><path d="M11 12h.01M11 28h.01M17 12h12M17 28h12"/></svg>
           <b>서버</b>
-          <p>서버를 직접 설정하고 돌려요.</p>
+          <p>서버를 직접 설정하고 운영합니다.</p>
         </div>
         <div class="stack-card tile reveal" style="--d:.2s">
           <svg viewBox="0 0 24 24" aria-label="Firebase"><path fill="#FFCA28" d="M19.455 8.369c-.538-.748-1.778-2.285-3.681-4.569-.826-.991-1.535-1.832-1.884-2.245a146 146 0 0 0-.488-.576l-.207-.245-.113-.133-.022-.032-.01-.005L12.57 0l-.609.488c-1.555 1.246-2.828 2.851-3.681 4.64-.523 1.064-.864 2.105-1.043 3.176-.047.241-.088.489-.121.738-.209-.017-.421-.028-.632-.033-.018-.001-.035-.002-.059-.003a7.46 7.46 0 0 0-2.28.274l-.317.089-.163.286c-.765 1.342-1.198 2.869-1.252 4.416-.07 2.01.477 3.954 1.583 5.625 1.082 1.633 2.61 2.882 4.42 3.611l.236.095.071.025.003-.001a9.59 9.59 0 0 0 2.941.568q.171.006.342.006c1.273 0 2.513-.249 3.69-.742l.008.004.313-.145a9.63 9.63 0 0 0 3.927-3.335c1.01-1.49 1.577-3.234 1.641-5.042.075-2.161-.643-4.304-2.133-6.371m-7.083 6.695c.328 1.244.264 2.44-.191 3.558-1.135-1.12-1.967-2.352-2.475-3.665-.543-1.404-.87-2.74-.974-3.975.48.157.922.366 1.315.622 1.132.737 1.914 1.902 2.325 3.461zm.207 6.022c.482.368.99.712 1.513 1.028-.771.21-1.565.302-2.369.273a8 8 0 0 1-.373-.022c.458-.394.869-.823 1.228-1.279zm1.347-6.431c-.516-1.957-1.527-3.437-3.002-4.398-.647-.421-1.385-.741-2.194-.95.011-.134.026-.268.043-.4.014-.113.03-.216.046-.313.133-.689.332-1.37.589-2.025.099-.25.206-.499.321-.74l.004-.008c.177-.358.376-.719.61-1.105l.092-.152-.003-.001c.544-.851 1.197-1.627 1.942-2.311l.288.341c.672.796 1.304 1.548 1.878 2.237 1.291 1.549 2.966 3.583 3.612 4.48 1.277 1.771 1.893 3.579 1.83 5.375-.049 1.395-.461 2.755-1.195 3.933-.694 1.116-1.661 2.05-2.8 2.708-.636-.318-1.559-.839-2.539-1.599.79-1.575.952-3.28.479-5.072zm-2.575 5.397c-.725.939-1.587 1.55-2.09 1.856-.081-.029-.163-.06-.243-.093l-.065-.026c-1.49-.616-2.747-1.656-3.635-3.01-.907-1.384-1.356-2.993-1.298-4.653.041-1.19.338-2.327.882-3.379.316-.07.638-.114.96-.131l.084-.002c.162-.003.324-.003.478 0 .227.011.454.035.677.07.073 1.513.445 3.145 1.105 4.852.637 1.644 1.694 3.162 3.144 4.515z"/></svg>
           <b>Firebase</b>
-          <p>데이터베이스는 Firebase를 써요.<br> 데이터를 저장하고 불러오는 건 여기서 해요.</p>
+          <p>데이터베이스로 사용합니다.<br> 데이터 저장과 조회를 처리합니다.</p>
         </div>
         <div class="stack-card tile reveal" style="--d:.3s">
           <svg viewBox="0 0 48 48" aria-label="Google"><path fill="#FFC107" d="M43.611 20.083H42V20H24v8h11.303c-1.649 4.657-6.08 8-11.303 8-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 12.955 4 4 12.955 4 24s8.955 20 20 20 20-8.955 20-20c0-1.341-.138-2.65-.389-3.917z"/><path fill="#FF3D00" d="M6.306 14.691l6.571 4.819C14.655 15.108 18.961 12 24 12c3.059 0 5.842 1.154 7.961 3.039l5.657-5.657C34.046 6.053 29.268 4 24 4 16.318 4 9.656 8.337 6.306 14.691z"/><path fill="#4CAF50" d="M24 44c5.166 0 9.86-1.977 13.409-5.192l-6.19-5.238C29.211 35.091 26.715 36 24 36c-5.202 0-9.619-3.317-11.283-7.946l-6.522 5.025C9.505 39.556 16.227 44 24 44z"/><path fill="#1976D2" d="M43.611 20.083H42V20H24v8h11.303c-.792 2.237-2.231 4.166-4.087 5.571l6.19 5.238C36.971 39.205 44 34 44 24c0-1.341-.138-2.65-.389-3.917z"/></svg>
           <b>Google 인증</b>
-          <p>Google 인증서를 받았어요.</p>
+          <p>Google 인증서를 발급받았습니다.</p>
         </div>
       </div>
     </section>
@@ -946,12 +946,12 @@
     <section class="panel" id="design">
       <div class="design-grid">
         <div>
-          <h2 class="panel-title reveal">디자인 철학</h2>
-          <p class="panel-desc reveal">애플 리퀴드 글라스를 참고했어요.<br> 대신 전부 유리처럼 만들지는 않았어요.</p>
+          <h2 class="panel-title reveal">Design Philosophy</h2>
+          <p class="panel-desc reveal">Apple 리퀴드 글라스를 참고했습니다.<br> 필요한 곳에만 적용했습니다.</p>
           <ul class="principles">
-            <li class="reveal"><p>유리는 메뉴처럼 누르는 곳 위주로만 썼어요.<br> 그 밖에는 굳이 유리일 필요가 없다고 생각했어요.</p></li>
-            <li class="reveal" style="--d:.1s"><p>메뉴가 동그라미에서 늘어나고 선택 표시가 미끄러지는 건,<br> 어디를 눌렀는지 바로 보이게 하려고 넣었어요.</p></li>
-            <li class="reveal" style="--d:.2s"><p>바탕은 거의 검정이에요.<br> 내용이 먼저 보이게 하고 싶었어요.</p></li>
+            <li class="reveal"><p>유리 효과는 메뉴처럼 누르는 요소에만 적용합니다.<br> 그 외에는 필요하지 않다고 판단했습니다.</p></li>
+            <li class="reveal" style="--d:.1s"><p>메뉴 확장과 선택 표시 이동 효과는<br> 눌린 위치를 바로 알 수 있도록 설계했습니다.</p></li>
+            <li class="reveal" style="--d:.2s"><p>배경은 거의 검정입니다.<br> 내용이 먼저 보이도록 했습니다.</p></li>
           </ul>
         </div>
 
@@ -961,9 +961,9 @@
             <div class="lens glass"></div>
           </div>
           <figcaption class="lens-notes">
-            <span>뒤에 있는 모습이 그대로 비쳐요</span>
-            <span>테두리에 빛이 맺혀요</span>
-            <span>액체처럼 늘어났다 줄어들어요</span>
+            <span>배경이 그대로 비칩니다</span>
+            <span>테두리에 빛이 맺힙니다</span>
+            <span>액체처럼 늘어나고 줄어듭니다</span>
           </figcaption>
 
           <div class="lens-control">
@@ -972,15 +972,15 @@
               <output id="clarity-out" for="clarity">75%</output>
             </div>
             <input class="slider" id="clarity" type="range" min="0" max="100" value="75">
-            <p class="lens-control-hint">움직여서 유리를 바꿔 보세요.</p>
+            <p class="lens-control-hint">슬라이더로 유리 투명도를 조절할 수 있습니다.</p>
           </div>
         </figure>
       </div>
     </section>
 
     <section class="panel" id="work">
-      <h2 class="panel-title reveal">작업</h2>
-      <p class="panel-desc reveal">지금까지 만든 사이트들이에요.</p>
+      <h2 class="panel-title reveal">Work</h2>
+      <p class="panel-desc reveal">지금까지 제작한 사이트입니다.</p>
       <div class="work-slider">
       <div class="work-grid" id="work-grid">
         <article class="work-card tile reveal">
@@ -988,7 +988,7 @@
           <div class="work-info">
             <small>웹사이트 · 2026</small>
             <h3>프로젝트 A</h3>
-            <p>내 작업을 모아둔 한 페이지 사이트.</p>
+            <p>작업을 모아 둔 원페이지 사이트</p>
             <div class="chips"><span>함께한 사람 A</span></div>
           </div>
         </article>
@@ -997,7 +997,7 @@
           <div class="work-info">
             <small>웹앱 · 2026</small>
             <h3>프로젝트 B</h3>
-            <p>기록하고 관리하는 작은 웹 서비스.</p>
+            <p>기록 및 관리용 웹 서비스</p>
             <div class="chips"><span>함께한 사람 B</span><span>함께한 사람 C</span></div>
           </div>
         </article>
@@ -1006,7 +1006,7 @@
           <div class="work-info">
             <small>랜딩 페이지 · 2025</small>
             <h3>프로젝트 C</h3>
-            <p>행사 소개용 랜딩 페이지.</p>
+            <p>행사 소개 랜딩 페이지</p>
             <div class="chips"><span>함께한 사람 A</span><span>함께한 사람 D</span></div>
           </div>
         </article>
@@ -1015,8 +1015,8 @@
           <div class="work-info">
             <small>웹사이트 · 2025</small>
             <h3>프로젝트 D</h3>
-            <p>크루 소개 사이트.</p>
-            <div class="chips"><span>혼자 작업</span></div>
+            <p>크루 소개 사이트</p>
+            <div class="chips"><span>단독 작업</span></div>
           </div>
         </article>
       </div>
@@ -1027,8 +1027,8 @@
     </section>
 
     <section class="panel" id="team">
-      <h2 class="panel-title reveal">함께한 사람들</h2>
-      <p class="panel-desc reveal">같이 만든 사람들이에요.</p>
+      <h2 class="panel-title reveal">People</h2>
+      <p class="panel-desc reveal">함께 작업한 사람들입니다.</p>
       <div class="people">
         <div class="person tile reveal" style="--hue:210"><div class="avatar">A</div><div><b>함께한 사람 A</b><span>디자인</span></div></div>
         <div class="person tile reveal" style="--hue:280;--d:.08s"><div class="avatar">B</div><div><b>함께한 사람 B</b><span>개발</span></div></div>
@@ -1039,9 +1039,9 @@
 
     <section class="panel" id="contact">
       <div class="contact-box tile reveal">
-        <h2>연락</h2>
-        <button class="mail" id="mail" data-mail="hello@example.com">hello@example.com</button>
-        <p>누르면 주소가 복사돼요.</p>
+        <h2>Contact</h2>
+        <button class="mail" id="mail" data-mail="feelbox.gsh@gmail.com">feelbox.gsh@gmail.com</button>
+        <p>클릭하면 주소가 복사됩니다.</p>
       </div>
       <footer>
         <span>© 2026 하루 HALUE</span>
@@ -1115,7 +1115,7 @@
       const address = $('#mail').dataset.mail;
       try {
         await navigator.clipboard.writeText(address);
-        showToast('복사했어요');
+        showToast('복사되었습니다');
       } catch {
         showToast(address);
       }
