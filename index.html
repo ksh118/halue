@@ -632,6 +632,9 @@
     .chips { display: flex; flex-wrap: wrap; gap: 6px; }
     .chips span { padding: 2px 12px; border: 1px solid var(--line); border-radius: 99px; font-size: 14px; }
 
+    .work-slider { position: relative; }
+    .work-arrow, .work-dots { display: none; }
+
     /* 함께한 사람들 */
     .people { display: flex; flex-wrap: wrap; gap: 14px; }
 
@@ -758,19 +761,56 @@
       .slider { height: 28px; }
       .lens-control-hint { display: none; }
 
-      /* 작업은 옆으로 넘겨서 본다 */
+      /* 작업은 옆으로 넘겨서 본다: 지금 카드만 또렷하고 나머지는 흐리게 */
       .work-grid {
         display: flex;
-        gap: 14px;
+        gap: 12px;
         margin: 0 -24px;
-        padding: 4px 24px 10px;
+        padding: 14px 24px 16px;
         overflow-x: auto;
+        overscroll-behavior-x: contain;
         scroll-snap-type: x mandatory;
+        scroll-padding: 0 24px;
         scrollbar-width: none;
       }
       .work-grid::-webkit-scrollbar { display: none; }
-      .work-card { flex: 0 0 76%; scroll-snap-align: center; }
+      .work-card { flex: 0 0 78%; scroll-snap-align: start; scroll-snap-stop: always; }
+      .work-card.reveal {
+        opacity: .38;
+        transform: scale(.94);
+        filter: none;
+        transition: opacity .4s ease, transform .5s var(--ease-out);
+      }
+      .work-card.reveal.active { opacity: 1; transform: none; }
       .thumb { height: 120px; }
+
+      .work-arrow {
+        position: absolute;
+        z-index: 2;
+        top: 108px;
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+        color: #fff;
+        cursor: pointer;
+        background: rgba(30, 32, 48, .72);
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,.35), 0 6px 18px rgba(0,0,0,.5);
+      }
+      .work-arrow[hidden] { display: none; }
+      .work-arrow svg { width: 22px; height: 22px; }
+      .work-next { right: -6px; animation: nudge 1.6s ease-in-out infinite; }
+      .work-prev { left: -6px; }
+      @keyframes nudge { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(6px); } }
+
+      .work-dots { display: flex; justify-content: center; align-items: center; gap: 8px; margin-top: 4px; }
+      .work-dots i { width: 7px; height: 7px; border-radius: 99px; background: rgba(255,255,255,.25); transition: width .35s var(--ease-out), background .3s; }
+      .work-dots i.on { width: 22px; background: var(--accent); }
 
       .people { gap: 10px; }
       .contact-box { padding: 44px 20px; }
@@ -803,6 +843,7 @@
       .reveal { opacity: 1; transform: none; filter: none; }
       * { animation-duration: .01s !important; animation-delay: 0s !important; transition: none !important; }
       .ticker-track { animation: none; }
+      .work-next { animation: none; }
       .lens { animation: none; left: 8%; width: 84%; height: 56px; margin-top: -28px; }
       .lens-notes span { animation: none; }
       .lens-notes span:first-child { opacity: 1; }
@@ -940,7 +981,8 @@
     <section class="panel" id="work">
       <h2 class="panel-title reveal">작업</h2>
       <p class="panel-desc reveal">지금까지 만든 사이트들이에요.</p>
-      <div class="work-grid">
+      <div class="work-slider">
+      <div class="work-grid" id="work-grid">
         <article class="work-card tile reveal">
           <div class="thumb" style="--hue:230"></div>
           <div class="work-info">
@@ -977,6 +1019,10 @@
             <div class="chips"><span>혼자 작업</span></div>
           </div>
         </article>
+      </div>
+      <button class="work-arrow work-prev" type="button" aria-label="이전 작업" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg></button>
+      <button class="work-arrow work-next" type="button" aria-label="다음 작업"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg></button>
+      <div class="work-dots" aria-hidden="true"></div>
       </div>
     </section>
 
@@ -1076,6 +1122,43 @@
     }
 
     $('#mail').addEventListener('click', copyMail);
+
+    // 작업 슬라이더: 지금 보는 카드 표시, 화살표, 점
+    const workGrid = $('#work-grid');
+    const workCards = $$('.work-card', workGrid);
+    const workPrev = $('.work-prev');
+    const workNext = $('.work-next');
+    const workDots = $('.work-dots');
+    workCards.forEach(() => workDots.append(document.createElement('i')));
+    const dots = $$('i', workDots);
+    let workIndex = 0;
+
+    function updateWork() {
+      const max = workGrid.scrollWidth - workGrid.clientWidth;
+      let index = 0;
+      let best = Infinity;
+      workCards.forEach((card, i) => {
+        const gap = Math.abs(card.offsetLeft - 24 - workGrid.scrollLeft);
+        if (gap < best) { best = gap; index = i; }
+      });
+      if (max > 0 && workGrid.scrollLeft >= max - 4) index = workCards.length - 1;
+      workIndex = index;
+      workCards.forEach((card, i) => card.classList.toggle('active', i === index));
+      dots.forEach((dot, i) => dot.classList.toggle('on', i === index));
+      workPrev.hidden = index === 0;
+      workNext.hidden = index === workCards.length - 1;
+    }
+
+    function goWork(index) {
+      const card = workCards[Math.max(0, Math.min(index, workCards.length - 1))];
+      workGrid.scrollTo({ left: card.offsetLeft - 24, behavior: reduceMotion ? 'auto' : 'smooth' });
+    }
+
+    workGrid.addEventListener('scroll', updateWork, { passive: true });
+    workPrev.addEventListener('click', () => goWork(workIndex - 1));
+    workNext.addEventListener('click', () => goWork(workIndex + 1));
+    addEventListener('resize', updateWork);
+    updateWork();
 
     // 메뉴: 선택 표시 이동 + 부드러운 스크롤
     const nav = $('.nav-links');
